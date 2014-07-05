@@ -25,6 +25,9 @@
         <module name="XsdFormBuilder" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="XsdFormBuilder" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 
