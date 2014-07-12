@@ -16,7 +16,7 @@ public abstract class AbstractElement implements Serializable {
 
     private static final Long serialVersionUID = -1L;
     protected static final String ERROR_CODE_MISSING_COLON = "error.configuration.form.missingColon";
-    protected static final String ERROR_CODE_MISSING_COLON_DEFAULT_VALUE = "Missing colon in property value.";
+    protected static final String ERROR_CODE_MISSING_COLON_DEFAULT_VALUE = "Missing colon in property value";
 
     private AbstractConfiguration configuration;
     private String id;
@@ -119,5 +119,33 @@ public abstract class AbstractElement implements Serializable {
                 getDataAttributes().put(entries[0], entries[1]);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AbstractElement that = (AbstractElement) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(that.name) : that.name != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

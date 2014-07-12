@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="test-element-enum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Option #1" />
+            <xs:enumeration value="Option #2" />
+            <xs:enumeration value="Option #3" />
+            <xs:enumeration value="Option #4" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="test-element" default="true">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string" />
+                <xs:element name="description" type="xs:string" />
+                <xs:element name="number" type="xs:int" />
+            </xs:sequence>
+            <xs:attribute name="values" use="required" type="test-element-enum" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

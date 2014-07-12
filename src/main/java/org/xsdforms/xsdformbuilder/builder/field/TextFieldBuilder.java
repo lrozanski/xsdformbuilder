@@ -1,35 +1,46 @@
 package org.xsdforms.xsdformbuilder.builder.field;
 
-public class TextHtmlFieldBuilder extends HtmlFieldBuilder {
+import org.xsdforms.xsdformbuilder.form.Form;
+import org.xsdforms.xsdformbuilder.form.field.AbstractField;
+import org.xsdforms.xsdformbuilder.form.field.TextField;
+import org.xsdforms.xsdformbuilder.utils.FieldUtils;
+
+import java.util.Map;
+import java.util.Set;
+
+public class TextFieldBuilder extends AbstractFieldBuilder {
 
     private String value;
     private Integer minLength;
     private Integer maxLength;
     private Boolean multiLine;
+    private Set<String> cssClasses;
+    private Map<String, String> dataAttributes;
 
-    public TextHtmlFieldBuilder() {
+    public TextFieldBuilder(Form parentForm) {
+        super(parentForm);
     }
 
-    public TextHtmlFieldBuilder(String name) {
-        super(name);
+    public TextFieldBuilder(Form parentForm, String name) {
+        super(parentForm, name);
     }
 
-    public TextHtmlFieldBuilder(String name, String label, String value, Boolean multiLine) {
-        super(name, label);
+    public TextFieldBuilder(Form parentForm, String name, String label, String value, Boolean multiLine) {
+        super(parentForm, name, label);
         this.value = value;
         this.multiLine = multiLine;
     }
 
-    public TextHtmlFieldBuilder(String name, String label, String value, Boolean multiLine, Integer maxLength) {
-        super(name, label);
+    public TextFieldBuilder(Form parentForm, String name, String label, String value, Boolean multiLine, Integer maxLength) {
+        super(parentForm, name, label);
         this.value = value;
         this.multiLine = multiLine;
         this.maxLength = maxLength;
     }
 
-    public TextHtmlFieldBuilder(String name, String label, String value, Integer minLength,
-                                Integer maxLength, Boolean multiLine) {
-        super(name, label);
+    public TextFieldBuilder(Form parentForm, String name, String label, String value, Integer minLength,
+                            Integer maxLength, Boolean multiLine) {
+        super(parentForm, name, label);
         this.value = value;
         this.minLength = minLength;
         this.maxLength = maxLength;
@@ -52,9 +63,26 @@ public class TextHtmlFieldBuilder extends HtmlFieldBuilder {
         return multiLine;
     }
 
+    public Set<String> getCssClasses() {
+        return cssClasses;
+    }
+
+    public Map<String, String> getDataAttributes() {
+        return dataAttributes;
+    }
+
     @Override
-    public String build() {
-        StringBuilder htmlBuilder = new StringBuilder(
+    public AbstractField build() {
+        return new TextField(
+                FieldUtils.getDefaultFieldConfiguration(),
+                getParentForm(),
+                getName(),
+                getLabel(),
+                value,
+                multiLine
+        );
+
+        /*StringBuilder htmlBuilder = new StringBuilder(
                 (multiLine) ? "<textarea " : "<input ");
 
         buildCommonAttributes(htmlBuilder);
@@ -62,20 +90,18 @@ public class TextHtmlFieldBuilder extends HtmlFieldBuilder {
         buildDataAttributes(htmlBuilder);
         buildConstraints(htmlBuilder);
 
-        // TODO : Add cssClasses
-        // TODO : Add dataAttributes
-
         if (multiLine) {
             htmlBuilder.append(">");
             if (value != null) {
                 htmlBuilder.append(value);
             }
         }
+
         htmlBuilder.append((multiLine) ? "</textarea>" : "/>");
-        return htmlBuilder.toString();
+        return htmlBuilder.toString();*/
     }
 
-    private void buildCommonAttributes(StringBuilder htmlBuilder) {
+    /*private void buildCommonAttributes(StringBuilder htmlBuilder) {
         if (getId() != null) {
             htmlBuilder.append(String.format("id=\"%s\" ", getId()));
         }
@@ -88,11 +114,20 @@ public class TextHtmlFieldBuilder extends HtmlFieldBuilder {
     }
 
     private void buildClasses(StringBuilder htmlBuilder) {
-
+        if (cssClasses == null || cssClasses.size() == 0) {
+            return;
+        }
+        String cssClassesString = StringUtils.join(cssClasses.toArray(), " ");
+        htmlBuilder.append(String.format("class=\"%s\" ", cssClassesString));
     }
 
     private void buildDataAttributes(StringBuilder htmlBuilder) {
-
+        if (dataAttributes == null || dataAttributes.size() == 0) {
+            return;
+        }
+        for (Map.Entry<String, String> dataAttribute : dataAttributes.entrySet()) {
+            htmlBuilder.append(String.format("%s=\"%s\" ", dataAttribute.getKey(), dataAttribute.getValue()));
+        }
     }
 
     private void buildConstraints(StringBuilder htmlBuilder) {
@@ -111,5 +146,5 @@ public class TextHtmlFieldBuilder extends HtmlFieldBuilder {
         if (required) {
             htmlBuilder.append(String.format("required=\"required\" "));
         }
-    }
+    }*/
 }

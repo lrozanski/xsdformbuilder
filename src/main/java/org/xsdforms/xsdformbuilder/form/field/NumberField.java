@@ -7,36 +7,30 @@ public class NumberField extends AbstractField {
 
     private static final Long serialVersionUID = -1L;
 
-    private String label;
+    private static int fieldCount;
+
     private Double value;
     private Integer minValue;
     private Integer maxValue;
     private Integer decimalPlaces;
 
-    public NumberField(FieldConfiguration configuration, AbstractForm parentForm,
+    public NumberField(FieldConfiguration configuration, AbstractForm parentForm, String name,
                        String label, Double value, Integer decimalPlaces) {
-        super(configuration, parentForm);
-        this.label = label;
+        super(configuration, parentForm, name, label);
         this.value = value;
         this.decimalPlaces = decimalPlaces;
+        String id = String.format("%s_field_%s_%s", parentForm.getId(), fieldCount++, label);
+        this.setId(id);
+        this.getCssClasses().add("xsd-field-number");
     }
 
-    public NumberField(FieldConfiguration configuration, AbstractForm parentForm,
+    public NumberField(FieldConfiguration configuration, AbstractForm parentForm, String name,
                        String label, Double value, Integer minValue, Integer maxValue, Integer decimalPlaces) {
-        super(configuration, parentForm);
-        this.label = label;
+        super(configuration, parentForm, name, label);
         this.value = value;
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.decimalPlaces = decimalPlaces;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public Double getValue() {

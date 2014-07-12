@@ -21,6 +21,9 @@
         <findbugs-maven-plugin.version>2.3.2</findbugs-maven-plugin.version>
         <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
         <maven-jxr-plugin.version>2.3</maven-jxr-plugin.version>
+        <junit.version>4.11</junit.version>
+        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+        <log4j.version>1.2.17</log4j.version>
 
         <maven.test.skip>false</maven.test.skip>
         <check.code.skip>${maven.test.skip}</check.code.skip>
@@ -47,6 +50,17 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jxr-plugin</artifactId>
             <version>${maven-jxr-plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
         </dependency>
     </dependencies>
 
@@ -136,6 +150,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin.version}</version>
                 <configuration>
+                    <encoding>UTF-8</encoding>
                     <configLocation>${basedir}/checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>${include.tests}</includeTestSourceDirectory>
                     <enableFilesSummary>true</enableFilesSummary>
@@ -173,6 +188,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <forkMode>never</forkMode>
+                </configuration>
             </plugin>
         </plugins>
     </build>

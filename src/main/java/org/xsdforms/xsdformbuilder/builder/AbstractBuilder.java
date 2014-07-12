@@ -1,9 +1,9 @@
 package org.xsdforms.xsdformbuilder.builder;
 
-public abstract class AbstractBuilder {
+public abstract class AbstractBuilder<T> {
 
     protected AbstractBuilder() {
     }
 
-    public abstract String build();
+    public abstract T build();
 }
