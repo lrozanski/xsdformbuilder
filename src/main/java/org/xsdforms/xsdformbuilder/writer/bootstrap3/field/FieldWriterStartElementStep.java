@@ -1,4 +1,6 @@
-package org.xsdforms.xsdformbuilder.writer.field;
+package org.xsdforms.xsdformbuilder.writer.bootstrap3.field;
+
+import org.xsdforms.xsdformbuilder.writer.field.AbstractFieldWriterStep;
 
 public class FieldWriterStartElementStep extends AbstractFieldWriterStep {
 

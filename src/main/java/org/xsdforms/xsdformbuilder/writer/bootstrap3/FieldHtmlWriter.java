@@ -1,12 +1,15 @@
-package org.xsdforms.xsdformbuilder.writer;
+package org.xsdforms.xsdformbuilder.writer.bootstrap3;
 
 import org.apache.commons.lang.StringUtils;
 import org.xsdforms.xsdformbuilder.form.field.AbstractField;
 import org.xsdforms.xsdformbuilder.form.field.NumberField;
 import org.xsdforms.xsdformbuilder.form.field.TextField;
-import org.xsdforms.xsdformbuilder.writer.field.FieldWriterAttributeStep;
-import org.xsdforms.xsdformbuilder.writer.field.FieldWriterLabelStep;
-import org.xsdforms.xsdformbuilder.writer.field.FieldWriterStartElementStep;
+import org.xsdforms.xsdformbuilder.writer.AbstractHtmlFieldWriter;
+import org.xsdforms.xsdformbuilder.writer.bootstrap3.field.FieldWriterFormGroupEndStep;
+import org.xsdforms.xsdformbuilder.writer.bootstrap3.field.FieldWriterFormGroupStartStep;
+import org.xsdforms.xsdformbuilder.writer.bootstrap3.field.FieldWriterLabelStep;
+import org.xsdforms.xsdformbuilder.writer.bootstrap3.field.FieldWriterStartElementStep;
+import org.xsdforms.xsdformbuilder.writer.bootstrap3.field.FieldWriterAttributeStep;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,7 +19,8 @@ public class FieldHtmlWriter extends AbstractHtmlFieldWriter {
     @Override
     public void write(AbstractField... values) {
         for (AbstractField field : values) {
-            FieldWriterLabelStep fieldWriterLabelStep = new FieldWriterLabelStep(getOutput());
+            FieldWriterFormGroupStartStep fieldWriterFormGroupStartStep = new FieldWriterFormGroupStartStep(getOutput());
+            FieldWriterLabelStep fieldWriterLabelStep = fieldWriterFormGroupStartStep.writeFormGroupStartElement();
             FieldWriterStartElementStep fieldWriterStartElementStep = fieldWriterLabelStep.writeLabel(
                     field.getId(), field.getLabel());
             FieldWriterAttributeStep fieldWriterAttributeStep = fieldWriterStartElementStep.writeStartElement();
@@ -53,12 +57,13 @@ public class FieldHtmlWriter extends AbstractHtmlFieldWriter {
                     fieldWriterAttributeStep.writeAttribute("min", numberField.getMaxValue().toString());
                 }
             }
-            fieldWriterAttributeStep.writeCloseElement();
+            FieldWriterFormGroupEndStep fieldWriterFormGroupEndStep = fieldWriterAttributeStep.writeCloseElement();
+            fieldWriterFormGroupEndStep.writeFormGroupEndElement();
         }
     }
 
     private String cssClassesToString(Collection<String> cssClasses) {
-        return StringUtils.join(cssClasses.toArray(), " ");
+        return String.format("form-control %s", StringUtils.join(cssClasses.toArray(), " "));
     }
 
     private String lengthConstraintsToString(Integer min, Integer max) {

@@ -1,4 +1,6 @@
-package org.xsdforms.xsdformbuilder.writer.field;
+package org.xsdforms.xsdformbuilder.writer.bootstrap3.field;
+
+import org.xsdforms.xsdformbuilder.writer.field.AbstractFieldWriterStep;
 
 public class FieldWriterAttributeStep extends AbstractFieldWriterStep {
 
@@ -11,8 +13,8 @@ public class FieldWriterAttributeStep extends AbstractFieldWriterStep {
         return this;
     }
 
-    public StringBuilder writeCloseElement() {
+    public FieldWriterFormGroupEndStep writeCloseElement() {
         getOutput().append(" />");
-        return getOutput();
+        return new FieldWriterFormGroupEndStep(getOutput());
     }
 }
