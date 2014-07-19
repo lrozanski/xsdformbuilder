@@ -15,8 +15,6 @@ public abstract class AbstractField extends AbstractElement {
 
     protected AbstractField(FieldConfiguration configuration, AbstractForm parentForm, String name, String label) {
         super(configuration);
-        validateProperties();
-        parseProperties();
         this.name = name;
         this.label = label;
         this.parentForm = parentForm;
@@ -25,8 +23,6 @@ public abstract class AbstractField extends AbstractElement {
     protected AbstractField(FieldConfiguration configuration, AbstractForm parentForm, String name, String label,
                             Boolean required) {
         super(configuration);
-        validateProperties();
-        parseProperties();
         this.name = name;
         this.label = label;
         this.parentForm = parentForm;

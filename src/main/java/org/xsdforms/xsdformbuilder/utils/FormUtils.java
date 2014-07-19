@@ -16,12 +16,9 @@ import org.xsdforms.xsdformbuilder.schema.Restriction;
 import org.xsdforms.xsdformbuilder.schema.SimpleType;
 
 import javax.xml.bind.JAXBElement;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 public final class FormUtils {
 
@@ -29,15 +26,7 @@ public final class FormUtils {
     }
 
     public static FormConfiguration getDefaultFormConfiguration() {
-        Properties properties = new Properties();
-        InputStream inputStream = FormUtils.class.getClassLoader().getResourceAsStream("formConfiguration.properties");
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            throw new FormBuilderRuntimeException(e);
-        }
-
-        return new FormConfiguration(properties);
+        return new FormConfiguration();
     }
 
     public static String getCssSelector(AbstractForm form) {

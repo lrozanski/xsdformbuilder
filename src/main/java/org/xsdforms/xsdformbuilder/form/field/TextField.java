@@ -73,4 +73,9 @@ public class TextField extends AbstractField {
     public void setMultiLine(Boolean multiLine) {
         this.multiLine = multiLine;
     }
+
+    public String getLengthRestriction() {
+        return (minLength == null && maxLength == null) ? null :
+                String.format(".{%s,%s}", (minLength == null) ? "" : minLength, (maxLength == null) ? "" : maxLength);
+    }
 }

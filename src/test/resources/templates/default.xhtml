@@ -1,0 +1,25 @@
+<form id="$form.id" class="xsd-form $form.listCssClasses()"
+        #if ($form.action) action="$form.action" #end
+        #if ($form.method) method="$form.method" #end
+        #foreach ($dataAttribute in $form.dataAttributes.entrySet()) data-$dataAttribute.getKey()="$dataAttribute.getValue()" #end>
+
+    #foreach ($field in $form.fields)
+
+        #if ($field.class.name == "org.xsdforms.xsdformbuilder.form.field.TextField")
+            <input id="$field.id" type="text" class="xsd-field xsd-field-text" name="$field.name" value="$field.value"
+                #if ($field.required)required="required" #end
+                #if ($field.getLengthRestriction()) pattern="$field.getLengthRestriction()" #end
+            />
+        #elseif ($field.class.name == "org.xsdforms.xsdformbuilder.form.field.NumberField")
+            <input id="$field.id" type="number" class="xsd-field xsd-field-number" name="$field.name" value="$field.value"
+                #if ($field.required)required="required" #end
+                #if ($field.minValue)min="$field.minValue" #end
+                #if ($field.maxValue)max="$field.maxValue" #end
+            />
+        #end
+
+    #end
+
+    <input type="submit" />
+
+</form>

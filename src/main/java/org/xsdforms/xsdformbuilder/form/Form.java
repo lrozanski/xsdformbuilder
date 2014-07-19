@@ -1,5 +1,6 @@
 package org.xsdforms.xsdformbuilder.form;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.xsdforms.xsdformbuilder.configuration.impl.FormConfiguration;
 
 public class Form extends AbstractForm {
@@ -10,11 +11,13 @@ public class Form extends AbstractForm {
 
     public Form(FormConfiguration formConfiguration) {
         super(formConfiguration);
-        parseProperties();
-        validateProperties();
 
         String id = String.format("form_%s", formCount++);
         this.setId(id);
         this.setName(id);
+    }
+
+    public String listCssClasses() {
+        return (getCssClasses() == null) ? null : StringUtils.join(getCssClasses().iterator(), " ");
     }
 }
